@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!---<title> Responsive Registration Form | CodingLab </title>--->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Company Recruitment Form</div>
+    <div class="content">
+      <form action="#" method="POST" class="form" id="update_company">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Company Name</span>
+            <input type="text" id="name" placeholder="Enter Company name" autocomplete="off" required>
+            <div class="error"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" id="email" placeholder="Enter Company email" autocomplete="off" required>
+            <div class="error"></div>
+          </div>
+          
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" id="password" placeholder="Enter password" required>
+            <div class="error"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="password" id="cpassword" placeholder="Enter password again" required>
+            <div class="error"></div>
+          </div>
+          
+          <div class="input-box">
+            <span class="details">Required CPI</span>
+            <input type="number" step="0.01" id="cpi" placeholder="Enter Required CPI" required>
+            <div class="error"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Required Age</span>
+            <input type="number" id="age" placeholder="Enter Required Age" required>
+            <div class="error"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Official Website</Tech-stack></span>
+            <input type="text" id="website" placeholder="Eg:- www.facebook.com" required>
+            <div class="error"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">position</Tech-stack></span>
+            <input type="text" id="position" placeholder="Eg:- Software Developer" required>
+            <div class="error"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Package</Tech-stack></span>
+            <input type="text" id="package" placeholder="in LPA" required>
+            <div class="error"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Description</Tech-stack></span>
+            <input type="text" id="description" placeholder="Eg:- Company is based on this ..." required>
+            <div class="error"></div>
+          </div>
+        </div>
+        
+        <div class="button">
+          <input type="submit" value="Save">
+        </div>
+        
+      </form>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const form = document.getElementById('form');
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const cpassword = document.getElementById('cpassword');
+    const cpi = document.getElementById('cpi');
+    const age = document.getElementById('age');
+
+
+  //   form.addEventListener('submit', e => {
+  //   e.preventDefault();
+
+  //   validateInputs();
+  // });
+
+  var lots_of_stuff_already_done = false;
+
+  $('.button').on('submit', function(e) {
+      if (lots_of_stuff_already_done) {
+          lots_of_stuff_already_done = false; // reset flag
+          return; // let the event bubble away
+      }
+
+      e.preventDefault();
+
+      validateInputs();
+
+      lots_of_stuff_already_done = true; // set flag
+      $(this).trigger('submit');
+  });
+
+  const setError = (element, message) => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+
+    errorDisplay.innerText = message;
+    inputControl.classList.add('error');
+    inputControl.classList.remove('success')
+  }
+
+  const setSuccess = element => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+
+    errorDisplay.innerText = '';
+    inputControl.classList.add('success');
+    inputControl.classList.remove('error');
+  };
+
+  const isValidEmail = email => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  const validateInputs = () => {
+    const nameVal = name.value.trim();
+    const emailVal = email.value.trim();
+    const passwordVal = password.value.trim();
+    const cpasswordVal = cpassword.value.trim();
+    const cpiVal = cpi.value.trim();
+    const ageVal = age.value.trim();
+
+    if(nameVal === '') {
+        setError(name, 'Username is required');
+    } else {
+        setSuccess(name);
+    }
+
+    if(emailVal === '') {
+        setError(email, 'Email is required');
+    } else if (!isValidEmail(emailVal)) {
+        setError(email, 'Provide a valid email address');
+    } else {
+        setSuccess(email);
+    }
+
+    if(passwordVal === '') {
+        setError(password, 'Password is required');
+    } else if (passwordVal.length < 8 ) {
+        setError(password, 'Password must be at least 8 character.')
+    } else {
+        setSuccess(password);
+    }
+
+    if(cpasswordVal === '') {
+        setError(cpassword, 'Please confirm your password');
+    } else if (cpasswordVal !== passwordVal) {
+        setError(cpassword, "Passwords doesn't match");
+    } else {
+        setSuccess(cpassword);
+    }
+
+    if(cpiVal === '') {
+        setError(cpi, 'cpi is required');
+    } else if (cpiVal > 10 ) {
+        setError(cpi, 'CPI must be less than 10 .');
+    } else {
+        setSuccess(cpi);
+    }
+
+    if(ageVal === '') {
+        setError(age, 'cpi is required');
+    } else {
+        setSuccess(age);
+    }
+
+  };
+    
+  </script>
+
+</body>
+</html>

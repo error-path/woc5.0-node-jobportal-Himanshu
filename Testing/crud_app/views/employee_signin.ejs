@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/signin.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGN IN FORM</title>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Sign in</div>
+        <div class="content">
+          <form action="/employee_signin/api/users" method="post" class="form" id="form">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="off" required>
+                    <div class="error"></div>
+                </div>
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="error"></div>
+                </div>
+                <div class="button">
+                    <input type="submit" value="Login">
+                </div>
+            </div>
+            <div class="signin">
+                <span>Don't have an account?</span><a href="/employee_form">Register Here</a>
+            </div>
+          </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const form = document.getElementById('form');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        
+        // form.addEventListener('submit', e => {
+        // e.preventDefault();
+    
+        // validateInputs();
+        // });
+
+        var lots_of_stuff_already_done = false;
+
+        $('.button').on('submit', function(e) {
+            if (lots_of_stuff_already_done) {
+                lots_of_stuff_already_done = false; // reset flag
+                return; // let the event bubble away
+            }
+
+            e.preventDefault();
+
+            validateInputs();
+
+            lots_of_stuff_already_done = true; // set flag
+            $(this).trigger('submit');
+        });
+    
+        const setError = (element, message) => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+    
+        errorDisplay.innerText = message;
+        inputControl.classList.add('error');
+        inputControl.classList.remove('success')
+        }
+    
+        const setSuccess = element => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+    
+        errorDisplay.innerText = '';
+        inputControl.classList.add('success');
+        inputControl.classList.remove('error');
+        };
+    
+        const isValidEmail = email => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+        }
+    
+        const validateInputs = () => {
+        const emailVal = email.value.trim();
+        const passwordVal = password.value.trim();
+    
+        if(emailVal === '') {
+            setError(email, 'Email is required');
+        } else if (!isValidEmail(emailVal)) {
+            setError(email, 'Provide a valid email address');
+        } else {
+            setSuccess(email);
+        }
+    
+        if(passwordVal === '') {
+            setError(password, 'Password is required');
+        } else if (passwordVal.length < 8 ) {
+            setError(password, 'Password must be at least 8 character.')
+        } else {
+            setSuccess(password);
+        }
+    
+      };
+        
+      </script>
+
+</body>
+</html>
