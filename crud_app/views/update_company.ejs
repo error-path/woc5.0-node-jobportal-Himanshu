@@ -7,21 +7,220 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css" media="screen">
+
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins',sans-serif;
+      }
+      body{
+        height: 160vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background: linear-gradient(135deg, #71b7e6, #9b59b6);
+      }
+      .container{
+        max-width: 700px;
+        width: 100%;
+        background-color: #fff;
+        padding: 0px 30px;
+        border-radius: 5px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+      }
+      .container .title{
+        font-size: 25px;
+        font-weight: 500;
+        position: relative;
+      }
+      
+      .title{
+          padding: 6px;
+      }
+      
+      .container .title::before{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 30px;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #71b7e6, #9b59b6);
+      }
+      
+      .content form .user-details{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 20px 0 12px 0;
+      }
+      
+      form .user-details .input-box{
+        margin-bottom: 15px;
+        width: calc(100% / 2 - 20px);
+      }
+      
+      form .input-box span.details{
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+      
+      .user-details .input-box input{
+        height: 45px;
+        width: 100%;
+        outline: none;
+        font-size: 16px;
+        border-radius: 5px;
+        padding-left: 15px;
+        border: 1px solid #ccc;
+        border-bottom-width: 2px;
+        transition: all 0.3s ease;
+      }
+      
+      
+      .user-details .input-box input:focus
+      {
+        border-color: #9b59b6;
+      }
+      
+       form .gender-details .gender-title{
+        font-size: 20px;
+        font-weight: 500;
+       }
+      
+       form .category{
+         display: flex;
+         width: 80%;
+         margin: 14px 0 ;
+         justify-content: space-between;
+       }
+      
+       form .category label{
+         display: flex;
+         align-items: center;
+         cursor: pointer;
+       }
+      
+       form .category label .dot{
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        margin-right: 10px;
+        background: #d9d9d9;
+        border: 5px solid transparent;
+        transition: all 0.3s ease;
+      }
+      
+       #dot-1:checked ~ .category label .one,
+       #dot-2:checked ~ .category label .two,
+       #dot-3:checked ~ .category label .three{
+         background: #9b59b6;
+         border-color: #d9d9d9;
+       }
+      
+       form input[type="radio"]{
+         display: none;
+       }
+      
+       form .button{
+         height: 45px;
+         margin: 35px 0
+       }
+      
+       form .button input{
+         height: 100%;
+         width: 100%;
+         border-radius: 5px;
+         border: none;
+         color: #fff;
+         font-size: 18px;
+         font-weight: 500;
+         letter-spacing: 1px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         background: linear-gradient(135deg, #71b7e6, #9b59b6);
+       }
+      
+       form .button input:hover{
+        /* transform: scale(0.99); */
+        background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+      
+        .input-box input:hover{
+          outline: 0;
+          border-color: #777;
+      }
+      
+      .input-box.success input {
+        border-color: #09c372;
+      }
+      
+      .input-box.error input {
+        border-color: #ff3860;
+      }
+      
+      .input-box .error {
+        color: #ff3860;
+        font-size: 9px;
+        height: 13px;
+      }
+      
+       @media(max-width: 584px){
+       .container{
+        max-width: 100%;
+      }
+      
+      form .user-details .input-box{
+          margin-bottom: 15px;
+          width: 100%;
+        }
+      
+        form .category{
+          width: 100%;
+        }
+      
+        .content form .user-details{
+          max-height: 300px;
+          overflow-y: scroll;
+        }
+      
+        .user-details::-webkit-scrollbar{
+          width: 5px;
+        }
+      
+        }
+        @media(max-width: 459px){
+        .container .content .category{
+          flex-direction: column;
+        }
+      
+      }
+      
+      
+    </style>
+
    </head>
 <body>
   <div class="container">
     <div class="title">Company Recruitment Form</div>
     <div class="content">
-      <form action="#" method="POST" class="form" id="update_company">
+      <form action="/company_signin/api/users/update_company/:id" method="POST" class="form" id="update_company">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Company Name</span>
-            <input type="text" id="name" placeholder="Enter Company name" autocomplete="off" required>
+            <input type="text" id="name" value="<%=comp_data.name%>" placeholder="Enter Company name" autocomplete="off" required>
             <div class="error"></div>
           </div>
           <div class="input-box">
             <span class="details">Email</span>
-            <input type="email" id="email" placeholder="Enter Company email" autocomplete="off" required>
+            <input type="email" id="email" value="<%=comp_data.email%>" placeholder="Enter Company email" autocomplete="off" required>
             <div class="error"></div>
           </div>
           
@@ -38,32 +237,32 @@
           
           <div class="input-box">
             <span class="details">Required CPI</span>
-            <input type="number" step="0.01" id="cpi" placeholder="Enter Required CPI" required>
+            <input type="number" step="0.01" id="cpi" value="<%=comp_data.cpi%>" placeholder="Enter Required CPI" required>
             <div class="error"></div>
           </div>
           <div class="input-box">
             <span class="details">Required Age</span>
-            <input type="number" id="age" placeholder="Enter Required Age" required>
+            <input type="number" id="age" value="<%=comp_data.age%>" placeholder="Enter Required Age" required>
             <div class="error"></div>
           </div>
           <div class="input-box">
             <span class="details">Official Website</Tech-stack></span>
-            <input type="text" id="website" placeholder="Eg:- www.facebook.com" required>
+            <input type="text" id="website" value="<%=comp_data.website%>" placeholder="Eg:- www.facebook.com" required>
             <div class="error"></div>
           </div>
           <div class="input-box">
             <span class="details">position</Tech-stack></span>
-            <input type="text" id="position" placeholder="Eg:- Software Developer" required>
+            <input type="text" id="position" value="<%=comp_data.position%>" placeholder="Eg:- Software Developer" required>
             <div class="error"></div>
           </div>
           <div class="input-box">
             <span class="details">Package</Tech-stack></span>
-            <input type="text" id="package" placeholder="in LPA" required>
+            <input type="text" id="package" value="<%=comp_data.package%>" placeholder="in LPA" required>
             <div class="error"></div>
           </div>
           <div class="input-box">
             <span class="details">Description</Tech-stack></span>
-            <input type="text" id="description" placeholder="Eg:- Company is based on this ..." required>
+            <input type="text" id="description" value="<%=comp_data.description%>" placeholder="Eg:- Company is based on this ..." required>
             <div class="error"></div>
           </div>
         </div>
@@ -86,11 +285,7 @@
     const age = document.getElementById('age');
 
 
-  //   form.addEventListener('submit', e => {
-  //   e.preventDefault();
 
-  //   validateInputs();
-  // });
 
   var lots_of_stuff_already_done = false;
 
